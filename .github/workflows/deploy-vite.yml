@@ -1,0 +1,15 @@
+name: pages
+on:
+  workflow_dispatch:
+  push:
+    branches: [main]
+    tags: ['*']
+  pull_request:
+    branches: [main]
+    tags: ['*']
+
+jobs:
+  deploy:
+    name: Deploy
+    uses: adombence/.github/.github/workflows/vite-build.yml@main
+    secrets: inherit
