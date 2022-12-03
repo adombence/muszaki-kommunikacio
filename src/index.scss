@@ -1,0 +1,101 @@
+@custom-media --motionOK (prefers-reduced-motion: no-preference);
+
+:root {
+  --surface: lch(10 0 0);
+  --surface2: lch(20 0 0);
+  --text: lch(90 0 0);
+  --text2: lch(70 0 0);
+  --textSize: 1rem;
+  --brandHSL: 328 100% 54%;
+  --img-width: 50ch;
+
+  @media (prefers-color-scheme: light) {
+    --surface: lch(90 0 0);
+    --surface2: lch(100 0 0);
+    --text: lch(20 0 0);
+    --text2: lch(40 0 0);
+  }
+
+  @media (max-width: 1200px) {
+    --textSize: 0.75rem;
+    --img-width: 100%;
+  }
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  scroll-behavior: smooth;
+}
+
+body {
+  min-block-size: 100vh;
+  font-family: "BLOKK", system-ui;
+  margin: 0;
+  padding: 0;
+  background: var(--surface);
+  color: var(--text);
+}
+
+h1,
+h2,
+h3,
+h4,
+figure {
+  margin: 0;
+  color: var(--text);
+}
+
+figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin: 2ch 0;
+  max-width: 100%;
+  width: 100%;
+}
+
+h2 {
+  font-size: 2.5rem;
+}
+
+h3 {
+  font-size: 1.5rem;
+  max-inline-size: 30ch;
+}
+
+p {
+  line-height: 1.5;
+  color: var(--text2);
+  max-inline-size: 100%;
+  font-size: var(--textSize);
+}
+
+a {
+  color: hsl(328 100% 74%);
+  outline-color: hsl(var(--brandHSL));
+  outline-offset: 5px;
+
+  &:hover {
+    color: hsl(var(--brandHSL));
+  }
+}
+
+table {
+  width: 100%;
+  display: table;
+  border-collapse: collapse;
+}
+
+tr:nth-child(even) {
+  background-color: var(--surface);
+  color: var(--text);
+}
+
+td,
+th {
+  width: fit-content;
+  width: -moz-fit-content;
+  text-align: left;
+  margin: 0;
+}
