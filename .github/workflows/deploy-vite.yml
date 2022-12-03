@@ -12,4 +12,6 @@ jobs:
   deploy:
     name: Deploy
     uses: adombence/.github/.github/workflows/vite-build.yml@main
+    with:
+      out_dir: dist/${{ github.event.repository.name }}
     secrets: inherit
