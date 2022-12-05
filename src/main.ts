@@ -1,7 +1,5 @@
 import './github-corner.css'
-import './sidenav.scss'
-import './nav.scss'
-import './index.scss'
+import './style.css'
 
 
 document.querySelector<HTMLDivElement>('.github-corner')!.innerHTML = `

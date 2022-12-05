@@ -1,17 +1,51 @@
-name: pages
+name: Deploy
+
 on:
-  workflow_dispatch:
   push:
-    branches: [main]
-    tags: ['*']
-  pull_request:
-    branches: [main]
-    tags: ['*']
+    branches:
+      - main
 
 jobs:
+  build:
+    name: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repo
+        uses: actions/checkout@v3
+
+      - name: Setup Node
+        uses: actions/setup-node@v3
+        with:
+          node-verson: 18
+          cache: 'npm'
+
+      - name: Build project
+        uses: adombence/.github/.github/actions/npm-ci-cache@main
+        run: npm run build
+
+      - name: Upload artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: artifacts
+          path: ./dist
+
   deploy:
     name: Deploy
-    uses: adombence/.github/.github/workflows/vite-build.yml@main
-    with:
-      out_dir: dist/${{ github.event.repository.name }}
-    secrets: inherit
+    needs: build
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/main'
+
+    steps:
+      - uses: actions/download-artifact@v3
+        with:
+          name: artifacts
+          path: ./dist
+      - uses: actions/configure-pages@v2
+      - uses: actions/upload-pages-artifact@v1
+        with:
+          path: ./dist
+      - uses: actions/deploy-pages@v1
+        id: deployment
+
+
