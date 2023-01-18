@@ -4,6 +4,16 @@ on:
   push:
     branches:
       - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: true
 
 jobs:
   build:
@@ -17,11 +27,13 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v3
         with:
-          node-verson: 18
+          node-version: 18
           cache: 'npm'
+          
+      - name: Install deps
+        run: npm install
 
       - name: Build project
-        uses: adombence/.github/.github/actions/npm-ci-cache@main
         run: npm run build
 
       - name: Upload artifacts
