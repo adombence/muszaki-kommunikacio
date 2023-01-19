@@ -148,13 +148,15 @@ button:focus-visible {
 
 .full-bleed {
   width: 100%;
+  max-width: 100%;
   grid-column: 1 / 4;
+  margin: 32px auto 48px;
+  z-index: 1000;
 }
 
 .full-bleed:is(img) {
   max-height: 60vh;
   object-fit: cover;
-  z-index: 100;
 }
 
 .wrapper > aside {
