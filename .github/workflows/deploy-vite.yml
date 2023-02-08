@@ -1,5 +1,4 @@
 name: CI/CD
-
 on:
   workflow_dispatch:
   push:
@@ -10,11 +9,7 @@ on:
     tags: ['*']
 
 jobs:
-  build:
-    name: ⚒️
-    uses: adombence/.github/.github/workflows/vite-build.yml@main
-  
-  pages:
-     name: 📄
-     needs: [build]
-     uses: adombence/.github/.github/workflows/vite-pages-deploy.yml@main
+  build-test-deploy-release:
+    name: CI/CD
+    uses: adombence/.github/.github/workflows/vite.yml@main
+    secrets: inherit
