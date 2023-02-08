@@ -16,4 +16,5 @@ jobs:
   
   pages:
      name: 📄
+     needs: [build]
      uses: adombence/.github/.github/workflows/vite-pages-deploy.yml@main
