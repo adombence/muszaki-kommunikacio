@@ -9,7 +9,7 @@ on:
     tags: ['*']
 
 jobs:
-  build-test-deploy-release:
+  build-deploy:
     name: CI/CD
     uses: adombence/.github/.github/workflows/vite.yml@main
     secrets: inherit
