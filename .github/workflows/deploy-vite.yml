@@ -1,63 +1,19 @@
-name: Deploy
+name: CI/CD
 
 on:
-  push:
-    branches:
-      - main
   workflow_dispatch:
-
-permissions:
-  contents: read
-  pages: write
-  id-token: write
-
-concurrency:
-  group: "pages"
-  cancel-in-progress: true
+  push:
+    branches: [main]
+    tags: ['*']
+  pull_request:
+    branches: [main]
+    tags: ['*']
 
 jobs:
   build:
-    name: build
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout repo
-        uses: actions/checkout@v3
-
-      - name: Setup Node
-        uses: actions/setup-node@v3
-        with:
-          node-version: 18
-          cache: 'npm'
-          
-      - name: Install deps
-        run: npm install
-
-      - name: Build project
-        run: npm run build
-
-      - name: Upload artifacts
-        uses: actions/upload-artifact@v3
-        with:
-          name: artifacts
-          path: ./dist
-
-  deploy:
-    name: Deploy
-    needs: build
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/main'
-
-    steps:
-      - uses: actions/download-artifact@v3
-        with:
-          name: artifacts
-          path: ./dist
-      - uses: actions/configure-pages@v2
-      - uses: actions/upload-pages-artifact@v1
-        with:
-          path: ./dist
-      - uses: actions/deploy-pages@v1
-        id: deployment
-
-
+    name: ⚒️
+    uses: adombence/.github/.github/workflows/vite-build.yml@main
+  
+  pages:
+     name: 📄
+     uses: adombence/.github/.github/workflows/vite-pages-deploy.yml@main
