@@ -6,7 +6,14 @@ on:
     tags: ['*']
 
 jobs:
-  build-deploy:
-    name: CI/CD
-    uses: adombence/.github/.github/workflows/vite.yml@main
-    secrets: inherit
+  build:
+    name: ⚒
+    uses: adombence/.github/.github/workflows/vite-build.yml@main
+    with:
+      out_dir: dist/${{ github.event.repository.name }}
+  
+  deploy:
+    name: 📃
+    if: github.ref == 'refs/heads/main'
+    needs: [build]
+    uses: adombence/.github/.github/workflows/vite-pages-deploy.yml@main
